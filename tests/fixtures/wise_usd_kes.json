@@ -1,0 +1,47 @@
+{
+ "amount": 1000.0,
+ "amountType": "SEND",
+ "providers": [
+  {
+   "name": "Instarem",
+   "alias": "instarem",
+   "quotes": [
+    {
+     "fee": 0.0,
+     "isConsideredMidMarketRate": false,
+     "markup": 0.77657033,
+     "rate": 128.7424,
+     "receivedAmount": 128742.4
+    }
+   ]
+  },
+  {
+   "name": "Wise",
+   "alias": "wise",
+   "quotes": [
+    {
+     "fee": 17.79,
+     "isConsideredMidMarketRate": true,
+     "markup": 0.0,
+     "rate": 129.75,
+     "receivedAmount": 127442.0
+    }
+   ]
+  },
+  {
+   "name": "Western Union",
+   "alias": "western-union",
+   "quotes": [
+    {
+     "fee": 1.99,
+     "isConsideredMidMarketRate": false,
+     "markup": 1.98867052,
+     "rate": 127.1697,
+     "receivedAmount": 126916.63
+    }
+   ]
+  }
+ ],
+ "sourceCurrency": "USD",
+ "targetCurrency": "KES"
+}

@@ -1,0 +1,234 @@
+{
+  "meta": {
+    "asof_utc": "2026-10-03T06:30:00Z",
+    "window_utc": "2026-10-03T05:20Z..06:45Z",
+    "collected_via": "Firecrawl (page + public JSON scrapes), Exa, WebSearch. Direct API calls from the sandbox are blocked by the egress policy.",
+    "caveats": [
+      "P2P books move ~5 bps in 30-40 minutes; treat every price as +/- 0.05%.",
+      "Mid-market is uncertain by ~0.15%: open.er-api 129.56 vs Wise 129.75 USD/KES.",
+      "Aggregator 'top-1' prices (p2p.army, OpenRate) include low-limit decoy ads and were NOT used for sized prices; they are kept only as indicative rows."
+    ]
+  },
+
+  "fx": {
+    "usdkes_mid_erapi": 129.560263,
+    "usdkes_mid_wise": 129.75,
+    "usdgbp_erapi": 0.756313,
+    "gbpkes_mid_wise": 171.776,
+    "usdeur_erapi": 0.888752
+  },
+
+  "p2p_kes_usdt": {
+    "binance": {
+      "ask_mpesa": {
+        "at_utc": "2026-10-03T05:35Z",
+        "ads": [
+          {"adv": "Quick-1-pay",     "price": 129.38, "min_kes": 5000,   "max_kes": 48521,  "avail_usdt": 375.03,  "completion": 0.928, "orders": 837},
+          {"adv": "SCHERTENLEIB",    "price": 129.50, "min_kes": 10000,  "max_kes": 500000, "avail_usdt": 6076.30, "completion": 0.996, "orders": 6521},
+          {"adv": "Limitless_A",     "price": 129.55, "min_kes": 23000,  "max_kes": 25910,  "avail_usdt": 200.0,   "completion": 0.984, "orders": 295},
+          {"adv": "MayorCoins",      "price": 129.58, "min_kes": 10000,  "max_kes": 429290, "avail_usdt": 3312.94, "completion": 0.991, "orders": 1216},
+          {"adv": "EVAMIGOLIMITED",  "price": 129.59, "min_kes": 10000,  "max_kes": 881565, "avail_usdt": 6802.73, "completion": 0.973, "orders": 4443},
+          {"adv": "laurelia",        "price": 129.70, "min_kes": 1000,   "max_kes": 30000,  "avail_usdt": 817.61,  "completion": 0.965, "orders": 1774},
+          {"adv": "Ai_Trade_Fast",   "price": 129.70, "min_kes": 1000,   "max_kes": 196987, "avail_usdt": 1518.79, "completion": 0.991, "orders": 2425},
+          {"adv": "Min_Coins",       "price": 129.70, "min_kes": 2000,   "max_kes": 31174,  "avail_usdt": 240.36,  "completion": 0.995, "orders": 2326},
+          {"adv": "MoH_coins",       "price": 129.78, "min_kes": 3000,   "max_kes": 276692, "avail_usdt": 2132.01, "completion": 1.0,   "orders": 2919},
+          {"adv": "TrustableKE",     "price": 129.79, "min_kes": 1000,   "max_kes": 111759, "avail_usdt": 861.08,  "completion": 0.974, "orders": 2399},
+          {"adv": "GoroXchange",     "price": 135.55, "min_kes": 5000,   "max_kes": 289015, "avail_usdt": 2132.16, "completion": 0.999, "orders": 716, "promoted": true}
+        ]
+      },
+      "ask_paybill": {
+        "at_utc": "2026-10-03T06:20Z",
+        "ads": [
+          {"adv": "SantaLucia",        "price": 129.12, "min_kes": 10000,  "max_kes": 189196,  "avail_usdt": 1465.28, "completion": 0.991, "orders": 7241},
+          {"adv": "USDT-PAY-24H",      "price": 129.13, "min_kes": 1000,   "max_kes": 25000,   "avail_usdt": 465.92,  "completion": 0.994, "orders": 1207},
+          {"adv": "QuantumTradeX",     "price": 129.18, "min_kes": 10000,  "max_kes": 74030,   "avail_usdt": 573.08,  "completion": 0.993, "orders": 1045},
+          {"adv": "MARY_QUEEN",        "price": 129.18, "min_kes": 40000,  "max_kes": 218607,  "avail_usdt": 1692.27, "completion": 0.979, "orders": 1620},
+          {"adv": "Ariwa_Capital",     "price": 129.24, "min_kes": 10000,  "max_kes": 250000,  "avail_usdt": 3209.13, "completion": 1.0,   "orders": 2819},
+          {"adv": "SCHERTENLEIB",      "price": 129.25, "min_kes": 20000,  "max_kes": 34782,   "avail_usdt": 269.11,  "completion": 0.996, "orders": 6524},
+          {"adv": "Gray 69",           "price": 129.26, "min_kes": 20000,  "max_kes": 31445,   "avail_usdt": 243.27,  "completion": 0.977, "orders": 1032},
+          {"adv": "FocalPoint-Trader", "price": 129.26, "min_kes": 100000, "max_kes": 1000000, "avail_usdt": 7775.48, "completion": 0.987, "orders": 447},
+          {"adv": "HollyBoyCrypto",    "price": 129.27, "min_kes": 70000,  "max_kes": 880000,  "avail_usdt": 8474.02, "completion": 0.993, "orders": 1251},
+          {"adv": "Trixie_Vault",      "price": 129.29, "min_kes": 25000,  "max_kes": 700000,  "avail_usdt": 8593.22, "completion": 0.999, "orders": 6627},
+          {"adv": "GoroXchange",       "price": 135.55, "min_kes": 5000,   "max_kes": 289015,  "avail_usdt": 2132.16, "completion": 0.999, "orders": 716, "promoted": true}
+        ]
+      },
+      "bid_mpesa": {
+        "at_utc": "2026-10-03T05:36Z",
+        "ads": [
+          {"adv": "Tharacuma",           "price": 129.08, "min_kes": 100000, "max_kes": 154896, "avail_usdt": 1200.0,    "completion": 0.993, "orders": 254},
+          {"adv": "PILOT_PLO_CRYPTODON", "price": 129.06, "min_kes": 30000,  "max_kes": 129147, "avail_usdt": 1000.68,  "completion": 0.996, "orders": 2533},
+          {"adv": "Firstofficer25",      "price": 129.02, "min_kes": 10000,  "max_kes": 20728,  "avail_usdt": 160.66,   "completion": 1.0,   "orders": 1507},
+          {"adv": "SantaLucia",          "price": 129.02, "min_kes": 9999,   "max_kes": 255370, "avail_usdt": 1979.31,  "completion": 0.991, "orders": 7237},
+          {"adv": "Always_ME",           "price": 129.00, "min_kes": 50000,  "max_kes": 700000, "avail_usdt": 113992.52,"completion": 0.97,  "orders": 474},
+          {"adv": "TheAberi",            "price": 129.00, "min_kes": 5000,   "max_kes": 40391,  "avail_usdt": 313.11,   "completion": 0.994, "orders": 2695},
+          {"adv": "Jian--Quiang",        "price": 129.00, "min_kes": 3000,   "max_kes": 54471,  "avail_usdt": 422.26,   "completion": 1.0,   "orders": 1316},
+          {"adv": "DigTrader",           "price": 128.91, "min_kes": 10000,  "max_kes": 73000,  "avail_usdt": 590.0,    "completion": 0.996, "orders": 211},
+          {"adv": "HollyBoyCrypto",      "price": 128.89, "min_kes": 40000,  "max_kes": 999999, "avail_usdt": 112253.22,"completion": 0.993, "orders": 1250},
+          {"adv": "DESCENDANTSai",       "price": 128.83, "min_kes": 15000,  "max_kes": 250000, "avail_usdt": 4685.5,   "completion": 1.0,   "orders": 15204},
+          {"adv": "CoinTee",             "price": 123.30, "min_kes": 1000,   "max_kes": 2700000,"avail_usdt": 163194.9, "completion": 0.991, "orders": 3339, "promoted": true}
+        ]
+      },
+      "bid_all": {
+        "at_utc": "2026-10-03T06:15Z",
+        "ads": [
+          {"adv": "QuantumTradeX", "price": 129.01, "min_kes": 100000, "max_kes": 2733000, "avail_usdt": 98522.81,  "completion": 0.993, "orders": 1045},
+          {"adv": "sunmburu-OTC",  "price": 128.95, "min_kes": 10000,  "max_kes": 103160,  "avail_usdt": 800.0,     "completion": 0.962, "orders": 354},
+          {"adv": "DigTrader",     "price": 128.91, "min_kes": 10000,  "max_kes": 64464,   "avail_usdt": 500.07,    "completion": 0.996, "orders": 211},
+          {"adv": "SCHERTENLEIB",  "price": 128.85, "min_kes": 20000,  "max_kes": 500000,  "avail_usdt": 70000.0,   "completion": 0.996, "orders": 6524},
+          {"adv": "DESCENDANTSai", "price": 128.83, "min_kes": 15000,  "max_kes": 250000,  "avail_usdt": 5050.18,   "completion": 1.0,   "orders": 15207},
+          {"adv": "Robacoin",      "price": 128.80, "min_kes": 20000,  "max_kes": 250000,  "avail_usdt": 4716.0,    "completion": 1.0,   "orders": 5321},
+          {"adv": "HollyBoyCrypto","price": 128.74, "min_kes": 40000,  "max_kes": 999999,  "avail_usdt": 112253.22, "completion": 0.993, "orders": 1251},
+          {"adv": "TokenTiger-",   "price": 128.73, "min_kes": 100000, "max_kes": 2000000, "avail_usdt": 133550.57, "completion": 0.993, "orders": 1534},
+          {"adv": "MARY_QUEEN",    "price": 128.72, "min_kes": 40000,  "max_kes": 999999,  "avail_usdt": 7876.2,    "completion": 0.979, "orders": 1620},
+          {"adv": "Ariwa_Capital", "price": 128.71, "min_kes": 10000,  "max_kes": 450000,  "avail_usdt": 196837.76, "completion": 1.0,   "orders": 2819},
+          {"adv": "CoinTee",       "price": 123.06, "min_kes": 1000,   "max_kes": 2700000, "avail_usdt": 163649.49, "completion": 0.991, "orders": 3339, "promoted": true}
+        ]
+      }
+    },
+    "bybit": {
+      "ask_all": {
+        "at_utc": "2026-10-03T05:50Z",
+        "note": "Cheapest asks (128.4-128.6, M-Pesa) have KES 150-400 order caps = decoys; sized asks are Paybill/I&M at 129.5+.",
+        "ads": [
+          {"adv": "W_wAnTeD_CoIn",  "price": 150.00, "min_kes": 150,   "max_kes": 290800,  "avail_usdt": 1938.67, "completion": 0.0,  "orders": 0},
+          {"adv": "ALLaccepted",    "price": 128.40, "min_kes": 150,   "max_kes": 200,     "avail_usdt": 195.27,  "completion": 1.0,  "orders": 48},
+          {"adv": "bonuke_king",    "price": 128.60, "min_kes": 150,   "max_kes": 400,     "avail_usdt": 393.57,  "completion": 1.0,  "orders": 17},
+          {"adv": "AZAMANFORDEALS", "price": 128.60, "min_kes": 200,   "max_kes": 200,     "avail_usdt": 6.46,    "completion": 0.95, "orders": 19},
+          {"adv": "Mars254",        "price": 129.52, "min_kes": 50000, "max_kes": 452760,  "avail_usdt": 3495.68, "completion": 0.96, "orders": 224, "method": "paybill"},
+          {"adv": "hiram",          "price": 129.57, "min_kes": 1000,  "max_kes": 20723,   "avail_usdt": 159.94,  "completion": 1.0,  "orders": 42,  "method": "paybill"},
+          {"adv": "Veshan",         "price": 129.60, "min_kes": 500,   "max_kes": 51041,   "avail_usdt": 393.84,  "completion": 0.98, "orders": 405, "method": "paybill"},
+          {"adv": "Show_It",        "price": 129.60, "min_kes": 1000,  "max_kes": 20000,   "avail_usdt": 279.68,  "completion": 0.95, "orders": 147, "method": "paybill"},
+          {"adv": "ExceL",          "price": 129.68, "min_kes": 1000,  "max_kes": 164782,  "avail_usdt": 1270.69, "completion": 0.99, "orders": 2113, "method": "paybill"},
+          {"adv": "Bulkpoint",      "price": 129.68, "min_kes": 20000, "max_kes": 210557,  "avail_usdt": 1623.67, "completion": 0.84, "orders": 266, "method": "bank"},
+          {"adv": "BRIGHTECH",      "price": 130.00, "min_kes": 500,   "max_kes": 16882,   "avail_usdt": 129.86,  "completion": 0.99, "orders": 509, "method": "paybill"}
+        ]
+      },
+      "bid_all": {
+        "at_utc": "2026-10-03T06:05Z",
+        "ads": [
+          {"adv": "Bridjo2018",    "price": 128.76, "min_kes": 20000, "max_kes": 700000,  "avail_usdt": 20337.30, "completion": 0.99, "orders": 139},
+          {"adv": "Mars254",       "price": 128.55, "min_kes": 50000, "max_kes": 1500000, "avail_usdt": 40697.85, "completion": 0.96, "orders": 224},
+          {"adv": "Iceman cryptos","price": 128.53, "min_kes": 10000, "max_kes": 1316994, "avail_usdt": 10246.59, "completion": 0.93, "orders": 361},
+          {"adv": "hiram",         "price": 128.52, "min_kes": 1000,  "max_kes": 1938,    "avail_usdt": 15.09,    "completion": 1.0,  "orders": 43},
+          {"adv": "Show_It",       "price": 128.52, "min_kes": 1000,  "max_kes": 5140,    "avail_usdt": 40.0,     "completion": 0.95, "orders": 147},
+          {"adv": "Ladyluxe",      "price": 128.51, "min_kes": 1000,  "max_kes": 50000,   "avail_usdt": 19369.84, "completion": 0.93, "orders": 186},
+          {"adv": "ExceL",         "price": 128.40, "min_kes": 1500,  "max_kes": 284566,  "avail_usdt": 2216.25,  "completion": 0.99, "orders": 2115},
+          {"adv": "EliteLy001",    "price": 128.40, "min_kes": 1000,  "max_kes": 1000000, "avail_usdt": 32593.62, "completion": 0.96, "orders": 471},
+          {"adv": "Chirah",        "price": 128.30, "min_kes": 7000,  "max_kes": 800000,  "avail_usdt": 82677.76, "completion": 0.99, "orders": 594},
+          {"adv": "jestrader01",   "price": 128.27, "min_kes": 1000,  "max_kes": 100000,  "avail_usdt": 42440.58, "completion": 0.93, "orders": 422},
+          {"adv": "FaithMarvel",   "price": 128.16, "min_kes": 10000, "max_kes": 998985,  "avail_usdt": 49589.96, "completion": 0.98, "orders": 234}
+        ]
+      }
+    },
+    "okx_top1_indicative": {
+      "source": "p2p.army, top-1 per payment method, limits unknown",
+      "at_utc": "2026-10-03T05:45Z",
+      "ask": {"mpesa": 129.79, "paybill": 129.64, "bank": 129.70},
+      "bid": {"mpesa": 129.00, "paybill": 128.95, "bank": 129.00}
+    }
+  },
+
+  "p2p_other": {
+    "binance_btc_kes_mpesa": {
+      "at_utc": "2026-10-03T06:35Z",
+      "ask": [
+        {"adv": "CoinTee",          "price": 10959440.78, "min_kes": 2000,   "max_kes": 10000,  "completion": 0.991, "orders": 3339},
+        {"adv": "fesk",             "price": 10972477.38, "min_kes": 1000,   "max_kes": 6829,   "completion": 0.955, "orders": 1446},
+        {"adv": "CryptoMerchantKE", "price": 11081866.01, "min_kes": 10000,  "max_kes": 100000, "completion": 1.0,   "orders": 280},
+        {"adv": "Gray 69",          "price": 11438536.07, "min_kes": 3000,   "max_kes": 505713, "completion": 0.977, "orders": 1032},
+        {"adv": "NAS-DAILY",        "price": 11946963.74, "min_kes": 2000,   "max_kes": 358188, "completion": 1.0,   "orders": 41}
+      ],
+      "bid": [
+        {"adv": "SCHERTENLEIB",  "price": 10834164.0, "min_kes": 20000,  "max_kes": 800000,  "completion": 0.996, "orders": 6524},
+        {"adv": "Ariwa_Capital", "price": 10821470.0, "min_kes": 10000,  "max_kes": 650000,  "completion": 1.0,   "orders": 2819},
+        {"adv": "TokenTiger-",   "price": 10798314.0, "min_kes": 100000, "max_kes": 1999999, "completion": 0.993, "orders": 1534},
+        {"adv": "CoinsMogul",    "price": 10776928.0, "min_kes": 10000,  "max_kes": 250000,  "completion": 1.0,   "orders": 5503}
+      ]
+    },
+    "binance_usdc_kes_mpesa_ask": [
+      {"adv": "PLOTINA", "price": 130.89, "min_kes": 1000, "max_kes": 53000,  "completion": 0.955, "orders": 1635},
+      {"adv": "CoinTee", "price": 131.33, "min_kes": 1000, "max_kes": 250000, "completion": 0.991, "orders": 3339}
+    ],
+    "binance_gbp_usdt_bid": [
+      {"adv": "P2P-28b857ok", "price": 0.754, "min_gbp": 1500, "max_gbp": 1960, "method": "Faster Payments", "completion": 1.0,   "orders": 13},
+      {"adv": "volodja2305",  "price": 0.751, "min_gbp": 200,  "max_gbp": 250,  "method": "Faster Payments", "completion": 0.944, "orders": 50},
+      {"adv": "Tuflaca_p2p",  "price": 0.761, "min_gbp": 300,  "max_gbp": 300,  "method": "Lloyds/Monzo",    "completion": 0.864, "orders": 76},
+      {"adv": "P2P-e70bb5sy", "price": 0.811, "min_gbp": 811,  "max_gbp": 5000, "method": "Bank/Monzo",      "completion": 0.60,  "orders": 3, "decoy": true}
+    ],
+    "usd_p2p_indicative_top1": {
+      "source": "p2p.army, top-1 per method, prices rounded to 2 dp so +/-0.5% resolution",
+      "bybit_paypal": {"ask": 1.04, "bid": 1.02, "ads": "10/11"},
+      "bybit_wise":   {"ask": 1.00, "bid": 1.02, "ads": "34/82"},
+      "okx_transfer_ach": {"ask": 1.02, "bid": 1.01, "ads": "8/3"},
+      "binance_wise": {"ask": 1.00, "bid": 1.00, "ads": "41/47"}
+    }
+  },
+
+  "remit": {
+    "usd_kes_1000": [
+      {"provider": "Instarem",        "rate": 128.7424, "fee": 0.0,  "received": 128742.40, "src": "wise_api", "promo": false},
+      {"provider": "Wise",            "rate": 129.75,   "fee": 17.79,"received": 127442.00, "src": "wise_api", "promo": false, "mid": true},
+      {"provider": "Western Union",   "rate": 127.1697, "fee": 1.99, "received": 126916.63, "src": "wise_api", "promo": false},
+      {"provider": "MoneyGram",       "rate": 132.099,  "fee": 0.0,  "received": 132100,    "src": "monito",   "promo": true},
+      {"provider": "WorldRemit",      "rate": 130.844,  "fee": 0.99, "received": 130715,    "src": "monito",   "promo": true},
+      {"provider": "Remitly",         "rate": 129.9,    "fee": 0.0,  "received": 129900,    "src": "monito",   "promo": true},
+      {"provider": "Western Union (first transfer)", "rate": 129.116, "fee": 0.0, "received": 129116, "src": "monito", "promo": true},
+      {"provider": "XE Money Transfer","rate": 128.863, "fee": 8.0,  "received": 127832,    "src": "monito",   "promo": false},
+      {"provider": "Taptap Send",     "rate": 128.3,    "fee": 0.0,  "received": 128300,    "src": "monito",   "promo": false}
+    ],
+    "gbp_kes_1000": [
+      {"provider": "Instarem",        "rate": 170.7254, "fee": 0.0,  "received": 170725.40, "src": "wise_api", "promo": false},
+      {"provider": "Wise",            "rate": 171.776,  "fee": 11.48,"received": 169804.00, "src": "wise_api", "promo": false, "mid": true},
+      {"provider": "HSBC",            "rate": 168.1659, "fee": 0.0,  "received": 168165.91, "src": "wise_api", "promo": false},
+      {"provider": "Barclays",        "rate": 167.0684, "fee": 0.0,  "received": 167068.44, "src": "wise_api", "promo": false},
+      {"provider": "Western Union",   "rate": 167.0509, "fee": 2.99, "received": 166551.42, "src": "wise_api", "promo": false},
+      {"provider": "MoneyGram",       "rate": 171.5908, "fee": 0.0,  "received": 171591,    "src": "monito",   "promo": true},
+      {"provider": "WorldRemit",      "rate": 170.8204, "fee": 0.99, "received": 170651,    "src": "monito",   "promo": true},
+      {"provider": "Taptap Send",     "rate": 170.3,    "fee": 0.0,  "received": 170300,    "src": "monito",   "promo": false},
+      {"provider": "XE Money Transfer","rate": 170.4075,"fee": 3.0,  "received": 169896,    "src": "monito",   "promo": false},
+      {"provider": "Remitly",         "rate": 169.29,   "fee": 0.0,  "received": 169290,    "src": "monito",   "promo": true}
+    ]
+  },
+
+  "spot": {
+    "binance": {
+      "at_utc": "2026-10-03T06:00Z",
+      "source": "data-api.binance.vision bookTicker",
+      "taker_fee": 0.001,
+      "book": {
+        "BTC/USDT":  [84637.50, 84637.51], "ETH/USDT":  [2677.92, 2677.93], "ETH/BTC":   [0.03164, 0.03165],
+        "BNB/USDT":  [767.40, 767.41],     "BNB/BTC":   [0.009067, 0.009068], "BNB/ETH":  [0.2866, 0.2867],
+        "XRP/USDT":  [1.4880, 1.4881],     "XRP/BTC":   [0.00001757, 0.00001758],
+        "SOL/USDT":  [119.67, 119.68],     "SOL/BTC":   [0.0014137, 0.0014138], "SOL/ETH": [0.04468, 0.04469],
+        "TRX/USDT":  [0.3350, 0.3351],     "TRX/BTC":   [0.00000395, 0.00000396],
+        "LTC/USDT":  [69.17, 69.18],       "LTC/BTC":   [0.000817, 0.000818],
+        "USDC/USDT": [1.00012, 1.00013],   "BTC/USDC":  [84633.77, 84633.78], "ETH/USDC": [2677.59, 2677.60],
+        "FDUSD/USDT":[0.9988, 0.9989]
+      }
+    },
+    "kraken": {
+      "at_utc": "2026-10-03T06:00Z",
+      "source": "api.kraken.com Ticker",
+      "taker_fee": 0.0040,
+      "book": {
+        "BTC/USD":   [84629.10, 84629.20], "BTC/USDT":  [84642.80, 84642.90],
+        "ETH/USD":   [2677.55, 2677.56],   "ETH/USDT":  [2678.18, 2678.19], "ETH/BTC": [0.031639, 0.031641],
+        "SOL/USD":   [119.64, 119.65],     "SOL/BTC":   [0.0014136, 0.0014137],
+        "LTC/USD":   [69.18, 69.19],       "LTC/BTC":   [0.000816, 0.000817],
+        "XRP/USD":   [1.48774, 1.48775],   "XRP/BTC":   [0.00001758, 0.000017582],
+        "USDT/USD":  [0.99979, 0.99980],   "USDC/USD":  [0.9999, 1.0000],  "USDC/USDT": [1.0001, 1.0002]
+      }
+    }
+  },
+
+  "fees_observed": {
+    "mpesa_send_tariff_url": "https://www.safaricom.co.ke/personal/m-pesa/mpesa-charges",
+    "binance_usdt_withdraw_usdt": {"BEP20": 0.30, "SOL": 0.30, "POLYGON": 1.0, "TRC20": 1.0, "ERC20": 1.6},
+    "raenest_stablecoin_deposit_usd": {"default": 1.0, "TRON": 2.0},
+    "raenest_kenya_payout_usd": 1.0,
+    "raenest_conversion": {"note": "0.5%, min $0.25, max $2.70 published for NGN corridors (Jan 2026); KES corridor not published - ASSUMPTION"},
+    "raenest_gbp_deposit": {"pct": 0.008, "min_gbp": 3.0, "max_gbp": 12.0},
+    "paypal_to_mpesa_pct": 0.03,
+    "mpesa_to_paypal_pct": 0.04
+  }
+}

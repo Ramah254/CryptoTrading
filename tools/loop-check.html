@@ -1,0 +1,397 @@
+<title>KES Loop Check</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a sticky strip of three verdicts over a two-column tool (inputs | loop details); one column on phones. */
+:root {
+  --bg: #F2F5F3;
+  --surface: #FFFFFF;
+  --ink: #13201B;
+  --muted: #586861;
+  --line: #D3DCD7;
+  --accent: #2347A8;
+  --accent-ink: #FFFFFF;
+  --good: #17744A;
+  --good-bg: #E1F2E8;
+  --bad: #B3261E;
+  --bad-bg: #FBE6E3;
+  --flat: #6F5300;
+  --flat-bg: #F5ECCB;
+  --user-field: #FFF6D6;
+  --font-body: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-num: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1513;
+    --surface: #17201D;
+    --ink: #E5EEE9;
+    --muted: #9AABA3;
+    --line: #2B3833;
+    --accent: #8FADFF;
+    --accent-ink: #0F1513;
+    --good: #5ACB92;
+    --good-bg: #163326;
+    --bad: #FF9188;
+    --bad-bg: #3A1B19;
+    --flat: #E8C766;
+    --flat-bg: #37300F;
+    --user-field: #2F2A12;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1513;
+  --surface: #17201D;
+  --ink: #E5EEE9;
+  --muted: #9AABA3;
+  --line: #2B3833;
+  --accent: #8FADFF;
+  --accent-ink: #0F1513;
+  --good: #5ACB92;
+  --good-bg: #163326;
+  --bad: #FF9188;
+  --bad-bg: #3A1B19;
+  --flat: #E8C766;
+  --flat-bg: #37300F;
+  --user-field: #2F2A12;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.wrap { max-width: 1020px; margin: 0 auto; padding-inline: 16px; padding-block: 12px 40px; }
+h1 { font-size: 1.5rem; line-height: 1.2; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h2 { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; font-weight: 600; }
+p { margin: 0; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; padding-block: 8px 12px; }
+.asof { font-family: var(--font-num); font-size: 0.78rem; color: var(--muted); }
+
+/* sticky verdict strip */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--bg); padding-block: 8px; border-bottom: 1px solid var(--line);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;
+}
+.pill { border-radius: 8px; padding: 8px 10px; min-width: 0; background: var(--flat-bg); color: var(--flat); }
+.pill.good { background: var(--good-bg); color: var(--good); }
+.pill.bad { background: var(--bad-bg); color: var(--bad); }
+.pill .k { font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; opacity: 0.9; }
+.pill .v { font-family: var(--font-num); font-size: 1.05rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 24px; padding-top: 20px; align-items: start; }
+@media (max-width: 800px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 14px; min-width: 0; }
+.group { display: grid; gap: 12px; }
+.group + .group { border-top: 1px solid var(--line); padding-top: 14px; }
+.field { display: grid; gap: 4px; min-width: 0; align-content: start; }
+.field label { font-size: 0.86rem; font-weight: 600; }
+.field .hint { font-size: 0.78rem; color: var(--muted); }
+input, select {
+  font: inherit; font-family: var(--font-num); font-variant-numeric: tabular-nums;
+  background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 6px;
+  padding: 9px 10px; width: 100%; min-width: 0;
+}
+input.user { background: var(--user-field); }
+input:focus-visible, select:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+button.ghost { font: inherit; font-size: 0.86rem; background: transparent; color: var(--accent); border: 1px solid var(--accent); border-radius: 6px; padding: 8px 12px; cursor: pointer; justify-self: start; }
+.note { font-size: 0.8rem; color: var(--muted); }
+.tag { font-family: var(--font-num); font-size: 0.68rem; background: var(--user-field); padding: 1px 6px; border-radius: 4px; margin-left: 6px; color: var(--ink); vertical-align: middle; white-space: nowrap; }
+
+.cards { display: grid; gap: 16px; min-width: 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.card header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
+.card h3 { margin: 0; font-size: 1rem; }
+.route { font-family: var(--font-num); font-size: 0.76rem; color: var(--muted); overflow-wrap: anywhere; }
+.verdict { font-family: var(--font-num); font-weight: 600; font-size: 0.82rem; padding: 3px 10px; border-radius: 999px; background: var(--flat-bg); color: var(--flat); }
+.verdict.good { background: var(--good-bg); color: var(--good); }
+.verdict.bad { background: var(--bad-bg); color: var(--bad); }
+.big { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+.big .n { font-family: var(--font-num); font-size: 1.7rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.big .n.good { color: var(--good); }
+.big .n.bad { color: var(--bad); }
+.big .s { font-family: var(--font-num); color: var(--muted); font-variant-numeric: tabular-nums; }
+dl { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; margin: 0; font-size: 0.88rem; }
+dt { color: var(--muted); }
+dd { margin: 0; font-family: var(--font-num); text-align: right; font-variant-numeric: tabular-nums; }
+.need { border-left: 3px solid var(--accent); padding: 8px 12px; background: var(--bg); border-radius: 0 6px 6px 0; font-size: 0.88rem; }
+.need b { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+.warn { font-size: 0.8rem; color: var(--bad); }
+.risks { margin: 0; padding-left: 1.1rem; display: grid; gap: 6px; font-size: 0.86rem; }
+.foot { margin-top: 24px; display: grid; gap: 10px; }
+@media (prefers-reduced-motion: no-preference) { .pill, .verdict { transition: background-color 0.15s, color 0.15s; } }
+</style>
+
+<div class="wrap">
+  <div class="head">
+    <h1>KES Loop Check</h1>
+    <div class="asof">prices: Binance P2P, 3 Oct 2026, 05:20 to 06:45 UTC</div>
+  </div>
+
+  <div class="bar" id="bar" aria-live="polite">
+    <div class="pill" id="pill-ra"><div class="k">Raenest</div><div class="v" id="pv-ra">-</div></div>
+    <div class="pill" id="pill-pp"><div class="k">PayPal</div><div class="v" id="pv-pp">-</div></div>
+    <div class="pill" id="pill-bn"><div class="k">Binance</div><div class="v" id="pv-bn">-</div></div>
+  </div>
+
+  <div class="grid">
+    <form class="panel" id="form" onsubmit="return false" autocomplete="off">
+      <div class="group">
+        <h2>Order and market</h2>
+        <div class="two">
+          <div class="field"><label for="size">Size (USD)</label><input id="size" type="number" inputmode="decimal" step="any" min="0"></div>
+          <div class="field"><label for="mid">USD/KES reference</label><input id="mid" type="number" inputmode="decimal" step="any" min="0"></div>
+        </div>
+        <p class="hint note">Public sources disagree on the reference: 128.4 (Monito, XE), 129.56 (open.er-api), 129.75 (Wise). Executable quotes below matter more than this number.</p>
+        <div class="field">
+          <label for="pay">How you pay the USDT seller</label>
+          <select id="pay">
+            <option value="paybill">M-Pesa Paybill (no fee for you)</option>
+            <option value="mpesa">M-Pesa send money (tariff applies, max KES 108)</option>
+          </select>
+        </div>
+        <div class="two">
+          <div class="field"><label for="ask">Best ask (KES per USDT)</label><input id="ask" type="number" inputmode="decimal" step="any" min="0"><span class="hint">Cheapest ad that fills your size</span></div>
+          <div class="field"><label for="bid">Best bid (KES per USDT)</label><input id="bid" type="number" inputmode="decimal" step="any" min="0"><span class="hint">Highest buyer that fills your size</span></div>
+        </div>
+        <div class="field"><label for="wfee">Exchange USDT withdrawal fee</label><input id="wfee" type="number" inputmode="decimal" step="any" min="0"><span class="hint">Binance BEP20 about 0.30 USDT; Tron 1.00</span></div>
+      </div>
+
+      <div class="group">
+        <h2>Quotes from your own apps <span class="tag">example values</span></h2>
+        <div class="field"><label for="raRate">Raenest USD to KES rate for your amount</label><input id="raRate" class="user" type="number" inputmode="decimal" step="any" min="0"><span class="hint">Open Raenest, Convert, USD to KES, type your amount, read the rate</span></div>
+        <div class="two">
+          <div class="field"><label for="raFee">Raenest conversion fee (USD)</label><input id="raFee" class="user" type="number" inputmode="decimal" step="any" min="0" placeholder="auto"><span class="hint">Blank assumes 0.5%, min 0.25, max 2.70</span></div>
+          <div class="field"><label for="raPay">Raenest payout fee (USD)</label><input id="raPay" type="number" inputmode="decimal" step="any" min="0"></div>
+        </div>
+        <div class="two">
+          <div class="field"><label for="raDep">Raenest stablecoin fee (USD)</label><input id="raDep" type="number" inputmode="decimal" step="any" min="0"><span class="hint">1.00; Tron network 2.00</span></div>
+          <div class="field"><label for="ppFee">PayPal to M-Pesa fee (%)</label><input id="ppFee" type="number" inputmode="decimal" step="any" min="0"></div>
+        </div>
+        <div class="field"><label for="ppBid">PayPal buyer bid (USD per USDT)</label><input id="ppBid" class="user" type="number" inputmode="decimal" step="any" min="0"><span class="hint">Best price a PayPal buyer pays for 1 USDT on the P2P board</span></div>
+        <button type="button" class="ghost" id="reset">Reset to 3 Oct examples</button>
+      </div>
+    </form>
+
+    <div class="cards">
+      <article class="card" id="c-ra">
+        <header><h3>Raenest stablecoin loop</h3><span class="verdict" id="vd-ra">-</span></header>
+        <div class="route">KES (M-Pesa) &rarr; USDT &rarr; Raenest USD &rarr; KES</div>
+        <div class="big"><span class="n" id="n-ra">-</span><span class="s" id="s-ra"></span></div>
+        <dl id="dl-ra"></dl>
+        <div class="need" id="need-ra"></div>
+        <p class="warn" id="w-ra"></p>
+      </article>
+
+      <article class="card" id="c-pp">
+        <header><h3>PayPal loop</h3><span class="verdict" id="vd-pp">-</span></header>
+        <div class="route">USD (PayPal) &rarr; M-Pesa KES &rarr; USDT &rarr; PayPal buyer</div>
+        <div class="big"><span class="n" id="n-pp">-</span><span class="s" id="s-pp"></span></div>
+        <dl id="dl-pp"></dl>
+        <div class="need" id="need-pp"></div>
+        <p class="warn">PayPal's policy restricts currency-exchange activity, and a buyer can dispute the payment after you release the USDT.</p>
+      </article>
+
+      <article class="card" id="c-bn">
+        <header><h3>Binance round trip</h3><span class="verdict" id="vd-bn">-</span></header>
+        <div class="route">KES (M-Pesa) &rarr; USDT &rarr; KES, same venue</div>
+        <div class="big"><span class="n" id="n-bn">-</span><span class="s" id="s-bn"></span></div>
+        <dl id="dl-bn"></dl>
+        <div class="need" id="need-bn"></div>
+        <p class="warn" id="w-bn"></p>
+      </article>
+    </div>
+  </div>
+
+  <div class="foot">
+    <h2>Before you try a loop</h2>
+    <ul class="risks">
+      <li>Kenya's DCI asked Binance to freeze accounts in April 2026. Some P2P users waited more than two months for access.</li>
+      <li>Raenest can quarantine an incoming stablecoin transfer it considers suspicious. It then stays out of your USD balance until cleared.</li>
+      <li>Kenya repealed its 3% Digital Asset Tax in 2025. Exchanges must now file annual user reports with KRA, and trading profit may count as taxable income. Ask a Kenyan tax adviser before you scale anything.</li>
+    </ul>
+    <p class="note">Fee sources: Safaricom send-money tariff, Raenest help centre (Kenya), PayPal to M-Pesa service, Binance withdrawal fees. P2P prices move about 0.05% in half an hour, so enter what you see now.</p>
+  </div>
+</div>
+
+<script id="calc">
+(function (root) {
+  var TARIFF = [[100, 0], [500, 7], [1000, 13], [1500, 23], [2500, 33], [3500, 53], [5000, 57], [7500, 78],
+                [10000, 90], [15000, 100], [20000, 105], [250000, 108]];
+  var TXN_CAP = 250000, DAILY_CAP = 500000;
+
+  function sendFee(a) {
+    if (a <= 0) return 0;
+    for (var i = 0; i < TARIFF.length; i++) if (a <= TARIFF[i][0]) return TARIFF[i][1];
+    throw new Error('above the per-transaction cap');
+  }
+  function totalFee(a) {
+    if (a <= 0) return 0;
+    var n = Math.ceil(a / TXN_CAP - 1e-12);
+    return n * sendFee(a / n);
+  }
+  function sendable(budget) {
+    var s = budget;
+    for (var i = 0; i < 100; i++) {
+      var over = s + totalFee(s) - budget;
+      if (over <= 1e-9) return s;
+      s -= over;
+    }
+    return s;
+  }
+  function clamp(x, lo, hi) { return Math.min(Math.max(x, lo), hi); }
+  function pay(i, kes) { return i.pay === 'paybill' ? kes : sendable(kes); }
+
+  function raenest(i) {
+    var K = i.size * i.mid, send = pay(i, K), usdt = send / i.ask;
+    var usd = (usdt - i.wfee) - i.raDep;
+    var conv = (i.raFee === null || i.raFee === undefined) ? clamp(usd * 0.005, 0.25, 2.70) : i.raFee;
+    var net = usd - conv - i.raPay, kesOut = net * i.raRate;
+    return { start: K, send: send, fee: K - send, usdt: usdt, usd: usd, conv: conv, net: net, out: kesOut,
+             pnl: kesOut - K, pct: 100 * (kesOut / K - 1), need: K / net, cap: K > DAILY_CAP };
+  }
+  function paypal(i) {
+    var kes = i.size * i.mid * (1 - i.ppFee / 100), send = pay(i, kes), usdt = send / i.ask, end = usdt * i.ppBid;
+    return { kes: kes, send: send, fee: kes - send, usdt: usdt, end: end, pnl: end - i.size,
+             pct: 100 * (end / i.size - 1), need: i.ask * i.size / send };
+  }
+  function roundTrip(i) {
+    var K = i.size * i.mid, send = pay(i, K), usdt = send / i.ask, out = usdt * i.bid;
+    return { start: K, send: send, fee: K - send, usdt: usdt, out: out, pnl: out - K,
+             pct: 100 * (out / K - 1), spreadPct: 100 * (i.ask / i.bid - 1), cap: K > DAILY_CAP };
+  }
+  var api = { sendFee: sendFee, totalFee: totalFee, sendable: sendable, raenest: raenest, paypal: paypal, roundTrip: roundTrip };
+  root.LoopCalc = api;
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+
+<script id="ui">
+(function () {
+  var C = window.LoopCalc;
+  var DEFAULTS = { size: 3000, mid: 129.56, pay: 'paybill', ask: 129.26, bid: 129.00, wfee: 0.30,
+                   raRate: 129.40, raFee: '', raPay: 1, raDep: 1, ppFee: 3, ppBid: 1.02 };
+  var IDS = Object.keys(DEFAULTS);
+  var KEY = 'kes-loop-check-v1';
+  var el = {};
+  IDS.forEach(function (k) { el[k] = document.getElementById(k); });
+
+  function load() {
+    var s = {};
+    try { s = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { s = {}; }
+    IDS.forEach(function (k) { el[k].value = (s[k] !== undefined ? s[k] : DEFAULTS[k]); });
+  }
+  function save() {
+    var s = {};
+    IDS.forEach(function (k) { s[k] = el[k].value; });
+    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { /* storage unavailable */ }
+  }
+  function num(k) { var v = parseFloat(el[k].value); return isFinite(v) ? v : NaN; }
+  function read() {
+    var i = { pay: el.pay.value };
+    ['size', 'mid', 'ask', 'bid', 'wfee', 'raRate', 'raPay', 'raDep', 'ppFee', 'ppBid'].forEach(function (k) { i[k] = num(k); });
+    i.raFee = el.raFee.value.trim() === '' ? null : num('raFee');
+    return i;
+  }
+  function valid(i) {
+    var req = ['size', 'mid', 'ask', 'bid', 'wfee', 'raRate', 'raPay', 'raDep', 'ppFee', 'ppBid'];
+    for (var n = 0; n < req.length; n++) if (!isFinite(i[req[n]]) || i[req[n]] < 0) return false;
+    if (i.raFee !== null && !isFinite(i.raFee)) return false;
+    return i.size > 0 && i.mid > 0 && i.ask > 0 && i.bid > 0 && i.raRate > 0 && i.ppBid > 0;
+  }
+
+  var f0 = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
+  var f2 = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  var f4 = new Intl.NumberFormat('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+  function sgn(x, f) { return (x >= 0 ? '+' : '-') + f.format(Math.abs(x)); }
+  function cls(pct) { return pct > 0.05 ? 'good' : (pct < -0.05 ? 'bad' : ''); }
+  function word(pct) { return pct > 0.05 ? 'Profit' : (pct < -0.05 ? 'Loss' : 'Flat'); }
+
+  function set(id, text) { document.getElementById(id).textContent = text; }
+  function setCls(id, base, c) { document.getElementById(id).className = base + (c ? ' ' + c : ''); }
+  function rows(id, list) {
+    var dl = document.getElementById(id);
+    dl.textContent = '';
+    list.forEach(function (r) {
+      var dt = document.createElement('dt'), dd = document.createElement('dd');
+      dt.textContent = r[0]; dd.textContent = r[1];
+      dl.appendChild(dt); dl.appendChild(dd);
+    });
+  }
+  function blank(tag) {
+    set('pv-' + tag, '-'); setCls('pill-' + tag, 'pill', '');
+    set('vd-' + tag, '-'); setCls('vd-' + tag, 'verdict', '');
+    set('n-' + tag, '-'); set('s-' + tag, ''); rows('dl-' + tag, []);
+    set('need-' + tag, 'Fill in every field to see the result.');
+  }
+  function paint(tag, pct, main, sub) {
+    var c = cls(pct);
+    set('pv-' + tag, sgn(pct, f2) + '%'); setCls('pill-' + tag, 'pill', c);
+    set('vd-' + tag, word(pct)); setCls('vd-' + tag, 'verdict', c);
+    set('n-' + tag, main); setCls('n-' + tag, 'n', c); set('s-' + tag, sub);
+  }
+
+  function render() {
+    var i = read();
+    if (!valid(i)) { ['ra', 'pp', 'bn'].forEach(blank); set('w-ra', ''); set('w-bn', ''); return; }
+
+    var r = C.raenest(i);
+    paint('ra', r.pct, sgn(r.pnl, f0) + ' KES', sgn(r.pct, f2) + '%');
+    rows('dl-ra', [
+      ['Start (M-Pesa)', f0.format(r.start) + ' KES'],
+      ['M-Pesa fee on the USDT purchase', f0.format(r.fee) + ' KES'],
+      ['USDT bought', f2.format(r.usdt) + ' USDT'],
+      ['Raenest USD credited (after fees)', '$' + f2.format(r.usd)],
+      ['After conversion and payout fees', '$' + f2.format(r.net) + '  (fees $' + f2.format(r.conv + i.raPay) + ')'],
+      ['KES back', f0.format(r.out) + ' KES']
+    ]);
+    var gap = (i.raRate / r.need - 1) * 100;
+    document.getElementById('need-ra').innerHTML = '';
+    var b = document.createElement('b'); b.textContent = f2.format(r.need);
+    var need = document.getElementById('need-ra');
+    need.append('Raenest must quote at least ', b, ' KES per USD to break even. Your entry is ' + f2.format(i.raRate) +
+                ' (' + sgn(gap, f2) + '%).');
+    set('w-ra', r.cap ? 'This is above the M-Pesa daily limit of KES 500,000. Split it across days.' : '');
+
+    var p = C.paypal(i);
+    paint('pp', p.pct, sgn(p.pnl, f2) + ' USD', sgn(p.pct, f2) + '%');
+    rows('dl-pp', [
+      ['PayPal to M-Pesa at ' + f2.format(i.ppFee) + '% fee', f0.format(p.kes) + ' KES'],
+      ['M-Pesa fee on the USDT purchase', f0.format(p.fee) + ' KES'],
+      ['USDT bought', f2.format(p.usdt) + ' USDT'],
+      ['USD from the PayPal buyer', '$' + f2.format(p.end)]
+    ]);
+    var need2 = document.getElementById('need-pp'); need2.textContent = '';
+    var b2 = document.createElement('b'); b2.textContent = f4.format(p.need);
+    need2.append('A PayPal buyer must pay at least ', b2, ' USD per USDT to break even. Your entry is ' + f4.format(i.ppBid) + '.');
+
+    var t = C.roundTrip(i);
+    paint('bn', t.pct, sgn(t.pnl, f0) + ' KES', sgn(t.pct, f2) + '%');
+    rows('dl-bn', [
+      ['Start (M-Pesa)', f0.format(t.start) + ' KES'],
+      ['M-Pesa fee on the USDT purchase', f0.format(t.fee) + ' KES'],
+      ['USDT bought', f2.format(t.usdt) + ' USDT'],
+      ['KES back', f0.format(t.out) + ' KES']
+    ]);
+    var need3 = document.getElementById('need-bn'); need3.textContent = '';
+    var b3 = document.createElement('b'); b3.textContent = f2.format(i.ask);
+    need3.append('This loop only pays when the best bid reaches the ask of ', b3, '. The gap now is ' + f2.format(t.spreadPct) + '%.');
+    set('w-bn', t.cap ? 'This is above the M-Pesa daily limit of KES 500,000. Split it across days.' : '');
+  }
+
+  load();
+  render();
+  document.getElementById('form').addEventListener('input', function () { save(); render(); });
+  document.getElementById('reset').addEventListener('click', function () {
+    IDS.forEach(function (k) { el[k].value = DEFAULTS[k]; });
+    save(); render();
+  });
+})();
+</script>

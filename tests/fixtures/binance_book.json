@@ -1,0 +1,44 @@
+[
+ {
+  "symbol": "ETHBTC",
+  "bidPrice": "0.03164000",
+  "bidQty": "26.273",
+  "askPrice": "0.03165000",
+  "askQty": "79.4199"
+ },
+ {
+  "symbol": "BTCUSDT",
+  "bidPrice": "84637.50000000",
+  "bidQty": "6.80019",
+  "askPrice": "84637.51000000",
+  "askQty": "3.12468"
+ },
+ {
+  "symbol": "ETHUSDT",
+  "bidPrice": "2677.92000000",
+  "bidQty": "38.7938",
+  "askPrice": "2677.93000000",
+  "askQty": "89.0183"
+ },
+ {
+  "symbol": "USDCUSDT",
+  "bidPrice": "1.00012000",
+  "bidQty": "2649257",
+  "askPrice": "1.00013000",
+  "askQty": "3168786"
+ },
+ {
+  "symbol": "FDUSDUSDT",
+  "bidPrice": "0.99880000",
+  "bidQty": "1835615",
+  "askPrice": "0.99890000",
+  "askQty": "900"
+ },
+ {
+  "symbol": "NOTMAPPED",
+  "bidPrice": "1",
+  "bidQty": "1",
+  "askPrice": "2",
+  "askQty": "1"
+ }
+]
